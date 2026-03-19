@@ -1,37 +1,73 @@
-'use client';
+'use client'
 
-import { usePayoutToast } from '@/hooks/usePayoutToast';
-import { useEffect, useState } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useMemo, useState } from 'react'
+
+import { TOAST_WORKERS } from '@/lib/site-data'
+
+interface ActiveToast {
+  id: number
+  name: string
+  city: string
+  amount: string
+}
 
 export function PayoutToastProvider() {
-  const { notifications } = usePayoutToast();
-  const [, setRender] = useState(0);
+  const [toast, setToast] = useState<ActiveToast | null>(null)
+  const workers = useMemo(() => TOAST_WORKERS, [])
 
-  // Force re-render when notifications change
   useEffect(() => {
-    setRender(prev => prev + 1);
-  }, [notifications]);
+    let lastIndex = -1
+    const timeoutIds: number[] = []
+
+    const showToast = () => {
+      let index = Math.floor(Math.random() * workers.length)
+      if (workers.length > 1 && index === lastIndex) {
+        index = (index + 1) % workers.length
+      }
+
+      lastIndex = index
+      const worker = workers[index]
+
+      const toastId = Date.now()
+      setToast({
+        id: toastId,
+        ...worker,
+      })
+
+      const timeoutId = window.setTimeout(() => {
+        setToast((current) => (current?.id === toastId ? null : current))
+      }, 5000)
+      timeoutIds.push(timeoutId)
+    }
+
+    const interval = window.setInterval(showToast, 45000)
+    return () => {
+      window.clearInterval(interval)
+      timeoutIds.forEach((id) => window.clearTimeout(id))
+    }
+  }, [workers])
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 space-y-2">
-      {notifications.map((notif) => (
-        <div
-          key={notif.id}
-          className="bg-card border border-accent/30 rounded-lg p-4 shadow-lg animate-slide-in-right flex gap-3 items-start min-w-80"
-        >
-          <CheckCircle className="text-accent flex-shrink-0 mt-0.5" size={20} />
-          <div className="flex-1">
-            <p className="font-bold text-foreground">Payout Sent!</p>
-            <p className="text-sm text-foreground/70">
-              <span className="text-accent font-semibold">₹{notif.amount}</span> transferred to {notif.workerName}
+    <div className="pointer-events-none fixed right-4 bottom-4 z-[80]">
+      <AnimatePresence>
+        {toast ? (
+          <motion.div
+            key={toast.id}
+            initial={{ opacity: 0, x: 32, y: 24 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: 32, y: 24 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-[#1a1a2e] px-4 py-4 shadow-2xl"
+            style={{ borderLeft: '3px solid #FF5722' }}
+          >
+            <p className="text-sm font-semibold text-white">
+              💸 {toast.name}, {toast.city}
             </p>
-            <p className="text-xs text-foreground/50 mt-1">
-              {notif.city} • {notif.timestamp}
-            </p>
-          </div>
-        </div>
-      ))}
+            <p className="mt-1 text-sm text-white/60">{toast.amount} credited just now</p>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
-  );
+  )
 }

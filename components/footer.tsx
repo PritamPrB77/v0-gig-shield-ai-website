@@ -1,144 +1,64 @@
-'use client';
-
-import Link from 'next/link';
-import { Mail, Linkedin, Twitter } from 'lucide-react';
+import Link from 'next/link'
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
-                G
-              </div>
-              <span className="text-white font-bold">GigShield AI</span>
+    <footer className="border-t border-white/10 bg-[#0b0b14]">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
+        <div>
+          <div className="mb-4 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-base font-black text-[#0f0f1e]">
+              G
             </div>
-            <p className="text-foreground/60 text-sm">
-              Protecting India's gig workers with AI-powered parametric insurance.
-            </p>
+            <div>
+              <p className="text-sm font-semibold tracking-[0.25em] text-white/50">GIGSHIELD AI</p>
+              <p className="text-lg font-semibold text-white">Weather-grade protection for gig workers</p>
+            </div>
           </div>
+          <p className="max-w-xl text-sm leading-6 text-white/60">
+            Parametric protection for rain, AQI, bandhs, and disruption days across India's platform economy.
+          </p>
+        </div>
 
-          {/* Product */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Product</h3>
-            <ul className="space-y-2 text-sm text-foreground/60">
-              <li>
-                <Link href="#features" className="hover:text-primary transition">
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link href="#how-it-works" className="hover:text-primary transition">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard" className="hover:text-primary transition">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link href="/live" className="hover:text-primary transition">
-                  Live Feed
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Company</h3>
-            <ul className="space-y-2 text-sm text-foreground/60">
-              <li>
-                <Link href="/about" className="hover:text-primary transition">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/api-docs" className="hover:text-primary transition">
-                  API Docs
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition">
-                  Careers
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Legal</h3>
-            <ul className="space-y-2 text-sm text-foreground/60">
-              <li>
-                <Link href="#" className="hover:text-primary transition">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition">
-                  Terms
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary transition">
-                  IRDAI Compliance
-                </Link>
-              </li>
-            </ul>
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/50">Explore</h3>
+          <div className="space-y-3 text-sm text-white/70">
+            <Link href="/#problem" className="block transition hover:text-primary">
+              The Problem
+            </Link>
+            <Link href="/#plans" className="block transition hover:text-primary">
+              Plans
+            </Link>
+            <Link href="/live" className="block transition hover:text-primary">
+              Live Command Center
+            </Link>
+            <Link href="/dashboard" className="block transition hover:text-primary">
+              Worker Dashboard
+            </Link>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-border my-8" />
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-sm text-foreground/60 mb-4 md:mb-0">
-            <p>
-              © 2026 GigShield AI. Powered by{' '}
-              <Link href="#" className="text-primary hover:underline">
-                Guidewire
-              </Link>
-              . Licensed under IRDAI Sandbox.
-            </p>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
-            <a
-              href="#"
-              className="text-foreground/60 hover:text-primary transition"
-              aria-label="Twitter"
-            >
-              <Twitter size={18} />
-            </a>
-            <a
-              href="#"
-              className="text-foreground/60 hover:text-primary transition"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href="#"
-              className="text-foreground/60 hover:text-primary transition"
-              aria-label="Email"
-            >
-              <Mail size={18} />
-            </a>
+        <div>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/50">Company</h3>
+          <div className="space-y-3 text-sm text-white/70">
+            <Link href="/insurer" className="block transition hover:text-primary">
+              For Platforms
+            </Link>
+            <Link href="/about" className="block transition hover:text-primary">
+              About the Team
+            </Link>
+            <Link href="/onboarding" className="block transition hover:text-primary">
+              Get Protected
+            </Link>
           </div>
         </div>
       </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-sm text-white/50 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+          <p>Powered by Guidewire PolicyCenter API. Built at DEVTrails 2026.</p>
+          <p>DPDP Act mindful. IRDAI-ready workflows. Bengaluru-first launch.</p>
+        </div>
+      </div>
     </footer>
-  );
+  )
 }
