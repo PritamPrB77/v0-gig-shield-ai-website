@@ -3,7 +3,6 @@ import { Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
-import { PayoutToastProvider } from '@/components/payout-toast'
 import './globals.css'
 
 const geist = Geist({ subsets: ["latin"] });
@@ -48,9 +47,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <PayoutToastProvider />
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
